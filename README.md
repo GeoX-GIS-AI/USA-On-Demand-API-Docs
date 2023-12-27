@@ -41,7 +41,6 @@ Postman is downloadable for free use from here and supported with lots of develo
 
 After downloading Postman follow the instructions below to get started.
 
-=> Single Location API with GET method
 1. Create a new request.
 2. In the Request URL field, paste your API's invoke URL which is https://service.geox-ai.com/api/v10g/parcels
 3. Select the GET HTTP method
@@ -54,16 +53,16 @@ After downloading Postman follow the instructions below to get started.
    - requests
    - aws_requests_auth
 
-### Python code for both single and batch requests
+### Python code
 ```python
 import json
 import requests
 from aws_requests_auth.aws_auth import AWSRequestsAuth
 
 
-def m2m_request_single_location(access_key, secret_key, lat=None, lng=None, address=None):
+def m2m_request(access_key, secret_key, lat=None, lng=None, address=None):
     """
-    This function will execute the API with single location and return the response.
+    This function will execute the API with given lat/lnlg or address, and return the response.
     :param access_key: AWS Access Key
     :param secret_key: AWS Secret Key
     :param lat: Latitude of the location
@@ -97,13 +96,13 @@ def m2m_request_single_location(access_key, secret_key, lat=None, lng=None, addr
 
 
 if __name__ == '__main__':
-    # Calling single location API with lat/lng
-    m2m_response = m2m_request_single_location("YOUR_API_KEY", "YOUR_API_SECRET",
+    # Executing API with lat/lng
+    m2m_response = m2m_request("YOUR_API_KEY", "YOUR_API_SECRET",
                                lat=45.6696163800542, lng=-122.5038830583887)
     print(json.dumps(m2m_response, indent=2))
 
-    # Calling single location API with address
-    m2m_response = m2m_request_single_location("YOUR_API_KEY", "YOUR_API_SECRET",
+    # Executing API with address
+    m2m_response = m2m_request("YOUR_API_KEY", "YOUR_API_SECRET",
                                address="123 Main St, Portland, OR 97204")
     print(json.dumps(m2m_response, indent=2))
 
@@ -112,7 +111,6 @@ if __name__ == '__main__':
 ## Access API with cURL
 The API request needs to be signed with AWS Signature Version 4. Please follow this [link](https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html) for more details.
 
-=> Single Location API with GET method
 ```shell
 curl --location 'https://service.geox-ai.com/api/v10g/parcels?address=2306%20River%20Oaks%20Boulevard%2C%20Jackson%2C%20MS%20United%20States' \
 --header 'X-Amz-Date: 20231227T075033Z' \
@@ -120,7 +118,7 @@ curl --location 'https://service.geox-ai.com/api/v10g/parcels?address=2306%20Riv
 ```
 
 ## Access API with wget
-=> Single Location API with GET method
+
 ```shell
 wget --no-check-certificate --quiet \
   --method GET \
@@ -138,7 +136,7 @@ Here are the sample request and response
 https://service.geox-ai.com/api/v10g/parcels
 ```
 
-## Request Query params Sample (Single Location API)
+## Request Query params Sample
 
 => With lat/lng
 ```shell
@@ -151,7 +149,6 @@ address=2306 River Oaks Boulevard, Jackson, MS United States
 
 ## Response Sample
 
-=> Single Loation API
 ```json
 {
     "footprints": [
